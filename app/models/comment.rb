@@ -1,3 +1,4 @@
 class Comment < ActiveRecord::Base
-	has_one :yochat
+	belongs_to :user
+	belongs_to :yochat
 end
