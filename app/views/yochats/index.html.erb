@@ -9,12 +9,16 @@
 			<%= yochat.comments.count %>
 		</p>
 		<p>like:<%= yochat.like %></p>
-		<%= link_to 'change share', edit_yochat_path(yochat) %>&nbsp;&nbsp;
+		<% if @user == yochat.user %>
+			<p><%= link_to 'share: ' + yochat.share_with, edit_yochat_path(yochat) %>&nbsp;&nbsp;
+		<% end %>
+		</p>
 		<%= link_to 'add comment', new_yochat_comment_path(yochat) %>
 		<%= button_to 'Delete', yochat_path(yochat), :method => 'delete' %>
 	</div>
 <% end %>
 <hr/>
-<%= link_to 'Add Yochat', new_yochat_path %>
+<%= link_to 'Add Yochat', new_yochat_path %>&nbsp;&nbsp;
+<%= link_to 'Home', users_path %>
 <hr/>
 <%= paginate @yochats %>

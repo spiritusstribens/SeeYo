@@ -35,7 +35,7 @@ class YochatsController < ApplicationController
 			redirect_to yochat_path(@yochat)
 			flash[:notice] = "Yochat was successfully updated!"
 		else
-			render :new
+			render :edit
 			flash[:alert] = "Yochat updated faild!"
 		end
 	end

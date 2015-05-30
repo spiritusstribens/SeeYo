@@ -3,7 +3,9 @@
 	<p>content:&nbsp;<%= simple_format(@yochat.content) %></p>
 	<p>like:&nbsp;<%= @yochat.like %></p>
 	<p>time:&nbsp;<%= @yochat.created_at %></p>
-	<p><%= link_to 'share: ', edit_yochat_path(@yochat) %>&nbsp;<%= @yochat.share_with %></p>
+	<% if @user == @yochat.user %>
+		<p><%= link_to 'share: ', edit_yochat_path(@yochat) %>&nbsp;<%= @yochat.share_with %></p>
+	<% end %>
 	<p>comments:&nbsp;<%= @yochat.comments.count %></p>
 	<%= link_to 'add comment', new_yochat_comment_path(@yochat) %>
 </div>
@@ -12,13 +14,15 @@
 <ul>
 	<li>user:&nbsp;<%= comment.user.username %>
 		<% if !comment.ater_id.nil? %>
-			<%= "@ " + comment.user.username %>
+			<%= "@ " + User.find(comment.ater_id).username %>
 		<% end %>
 	</li>
 	<li>content:&nbsp;<%= simple_format(comment.content) %></li>
 	<li>time:&nbsp;<%= comment.created_at %></li>
-	<%= link_to 'comment it', edit_yochat_comment_path(@yochat, @user) %>&nbsp;&nbsp;
-	<%= link_to 'delete', yochat_comment_path(@yochat, comment), :method => 'delete' %>
+	<%= link_to 'comment it', edit_yochat_comment_path(@yochat, comment.user) %>&nbsp;&nbsp;
+	<% if @user == comment.user %>
+		<%= link_to 'delete', yochat_comment_path(@yochat, comment), :method => 'delete' %>
+	<% end %>
 </ul>
 	<hr/>
 <% end %>
