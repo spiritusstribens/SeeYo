@@ -1,0 +1,2 @@
+class YochatsController < ApplicationController
+end
