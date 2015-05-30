@@ -9,8 +9,10 @@ class UsersController < ApplicationController
 	private
 	def set_user	
 		@user = current_user
-		if @user.username.nil?
-			@user.username = @user.email.sub(/@.*$/, "")
+		if @user.information.nil?
+			@info = @user.create_information
+		else
+			@info = @user.information
 		end
 	end
 

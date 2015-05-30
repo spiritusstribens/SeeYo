@@ -1,0 +1,20 @@
+<h1>Yochats</h1>
+<% @yochats.each do |yochat| %>
+	<div style='background-color: #DDF; margin:10px; padding: 10px; border-radius: 5px'>
+		<p>user:&nbsp;<%= yochat.user.username %></p>
+		<p>content:&nbsp;<%= simple_format(yochat.content) %></p>
+		<p>time:&nbsp;<%= yochat.created_at %></li>
+		<p>
+			<%= link_to 'comments', yochat_path(yochat) %>&nbsp;
+			<%= yochat.comments.count %>
+		</p>
+		<p>like:<%= yochat.like %></p>
+		<%= link_to 'change share', edit_yochat_path(yochat) %>&nbsp;&nbsp;
+		<%= link_to 'add comment', new_yochat_comment_path(yochat) %>
+		<%= button_to 'Delete', yochat_path(yochat), :method => 'delete' %>
+	</div>
+<% end %>
+<hr/>
+<%= link_to 'Add Yochat', new_yochat_path %>
+<hr/>
+<%= paginate @yochats %>

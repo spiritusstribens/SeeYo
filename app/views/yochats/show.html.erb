@@ -1,0 +1,25 @@
+<div style='background-color: #DDF; padding: 10px; border-radius:5px'>
+	<p>user:&nbsp;<%= @yochat.user.username %></p>
+	<p>content:&nbsp;<%= simple_format(@yochat.content) %></p>
+	<p>like:&nbsp;<%= @yochat.like %></p>
+	<p>time:&nbsp;<%= @yochat.created_at %></p>
+	<p><%= link_to 'share: ', edit_yochat_path(@yochat) %>&nbsp;<%= @yochat.share_with %></p>
+	<p>comments:&nbsp;<%= @yochat.comments.count %></p>
+	<%= link_to 'add comment', new_yochat_comment_path(@yochat) %>
+</div>
+<hr/>	
+<% @comments.each do |comment| %>
+<ul>
+	<li>user:&nbsp;<%= comment.user.username %>
+		<% if !comment.ater_id.nil? %>
+			<%= "@ " + comment.user.username %>
+		<% end %>
+	</li>
+	<li>content:&nbsp;<%= simple_format(comment.content) %></li>
+	<li>time:&nbsp;<%= comment.created_at %></li>
+	<%= link_to 'comment it', edit_yochat_comment_path(@yochat, @user) %>&nbsp;&nbsp;
+	<%= link_to 'delete', yochat_comment_path(@yochat, comment), :method => 'delete' %>
+</ul>
+	<hr/>
+<% end %>
+<%= link_to '<<back', yochats_path %>

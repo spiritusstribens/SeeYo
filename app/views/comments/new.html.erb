@@ -1,0 +1,5 @@
+<%= form_for @comment, :url => yochat_comments_path(@yochat) do |f| %>
+	<p><%= f.label :content, 'comment' %></p>
+	<p><%= f.text_area :content %></p>
+	<%= f.submit 'publish' %>
+<% end %>
