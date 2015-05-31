@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       end
     end
   end
+
   resources :yochats do
     collection do
       get :zone
@@ -17,10 +18,11 @@ Rails.application.routes.draw do
     end
     resources :comments, :except => [:index, :show]
   end
+
   namespace :admin do
-    resources :users
-    resources :yochats
-    resources :comments
+    resources :users, :only => [:index, :show, :destroy]
+    resources :yochats, :only => [:index, :show, :edit, :update]
+    resources :comments, :only => [:index, :show, :edit, :update]
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

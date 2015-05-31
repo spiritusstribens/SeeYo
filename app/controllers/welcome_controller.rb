@@ -8,7 +8,11 @@ class WelcomeController < ApplicationController
         user.username = user.email.sub(/@.*$/,"")
         user.save
       end
-      redirect_to users_url
-    end
+			if user.is_admin?
+				redirect_to admin_users_url
+			else
+				redirect_to users_url
+			end
+		end
   end
 end
