@@ -10,6 +10,11 @@ Rails.application.routes.draw do
 		end
 	end
 	resources :yochats do
+		collection do
+			get :zone
+			get :circle
+			get :private
+		end
 		resources :comments, :except => [:index, :show]
 	end
 	namespace :admin do

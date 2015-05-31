@@ -4,7 +4,39 @@ class YochatsController < ApplicationController
 	before_action :set_yochat, :only => [:show, :edit, :update, :destroy]
 
 	def index
-		@yochats = Yochat.page(params[:page]).per(5)
+		@yochats = Yochat.where(:share_with => 'public').page(params[:page]).per(10)
+	end
+
+	def zone
+		@yochats = Array.new
+		focus = Friend.where(:userf_id => @user.id).pluck(:usert_id)
+		zone_yochat = Yochat.where(:share_with => 'zone')
+		zone_yochat.each do |zy|
+			if focus.include?(zy.user_id)
+				@yochats.push(zy)
+			end
+		end
+	end
+
+	def circle
+		@yochats = Array.new
+		friends = Array.new
+		focus = Friend.where(:userf_id => @user).pluck(:usert_id)
+		focus.each do |fid|
+			if Friend.exists?(:userf_id => fid, :usert_id => @user.id)
+				friends.push(fid)
+			end
+		end
+		circle_yochat = Yochat.where(:share_with => 'circle')
+		circle_yochat.each do |cy|
+			if friends.include?(cy.user_id)
+				@yochats.push(cy)
+			end
+		end
+	end
+
+	def private
+		@yochats = @user.yochats.page(params[:page]).per(10)
 	end
 
 	def show
