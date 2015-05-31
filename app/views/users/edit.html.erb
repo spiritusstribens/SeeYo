@@ -1,29 +1,33 @@
 <h2><%= @user.username %></h2>
 <%= form_for @info, :url => user_path(@user), :method => 'patch' do |f| %>
-	<p><%= f.label :gender, 'gender' %></p>
-	<p>
-	<%= f.radio_button :gender, 'male' %>male
-	<%= f.radio_button :gender, 'female' %>female
-	<%= f.radio_button :gender, 'ahh...' %>ahh...
-	</p>
+  <p><%= f.label :gender, 'gender' %></p>
+  <p>
+  <%= f.radio_button :gender, 'male' %>male
+  <%= f.radio_button :gender, 'female' %>female
+  <%= f.radio_button :gender, 'ahh...' %>ahh...
+  </p>
 
-	<p><%= f.label :location, 'Location' %></p>
-	<p><%= f.text_field :location %></p>
+  <p><%= f.label :location, 'Location' %></p>
+  <p><%= f.text_field :location %></p>
 
-	<p><%= f.label :birthday, 'Birthday' %></p>
-	<p><%= f.datetime_select :birthday %></p>
-	
-	<p>
-	<%= f.label :blog, 'blog' %>
-	<%= f.text_area :blog, :cols => 50 %>
-	</p>
+  <p><%= f.label :birthday, 'Birthday' %></p>
+  <p><%= f.date_select :birthday %></p>
+  
+  <p>
+  <%= f.label :blog, 'blog' %>
+  <%= f.text_area :blog, :cols => 50 %>
+  </p>
 
-	<p>
-	<%= f.label :about, 'About' %>
-	<%= f.text_area :about, :cols => 50 %>
-	</p>
+  <p>
+  <%= f.label :about, 'About' %>
+  <%= f.text_area :about, :cols => 50 %>
+  </p>
 
-	<hr/>
-	<%= f.submit 'Update' %>
+  <p>
+  <%= f.collection_check_boxes(:interest_ids, Interest.all, :id, :name) %>
+  </p>
+
+  <hr/>
+  <%= f.submit 'Update' %>
 
 <% end %>

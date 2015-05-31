@@ -1,30 +1,29 @@
 <div style='background-color: #DDF; padding: 10px; border-radius:5px'>
-	<p>user:&nbsp;<%= link_to @yochat.user.username, user_path(@yochat.user) %></p>
-	<p>content:&nbsp;<%= simple_format(@yochat.content) %></p>
-	<p>like:&nbsp;<%= @yochat.like %></p>
-	<p>time:&nbsp;<%= @yochat.created_at %></p>
-	<% if @user == @yochat.user %>
-		<p><%= link_to 'share: ', edit_yochat_path(@yochat) %>&nbsp;<%= @yochat.share_with %></p>
-	<% end %>
-	<p>comments:&nbsp;<%= @yochat.comments.count %></p>
-	<%= link_to 'add comment', new_yochat_comment_path(@yochat) %>
+  <p>user:&nbsp;<%= link_to @yochat.user.username, user_path(@yochat.user) %></p>
+  <p>content:&nbsp;<%= simple_format(@yochat.content) %></p>
+  <p>time:&nbsp;<%= @yochat.created_at %></p>
+  <% if @user == @yochat.user %>
+    <p><%= link_to 'share: ', edit_yochat_path(@yochat) %>&nbsp;<%= @yochat.share_with %></p>
+  <% end %>
+  <p>comments:&nbsp;<%= @yochat.comments.count %></p>
+  <%= link_to 'add comment', new_yochat_comment_path(@yochat) %>
 </div>
-<hr/>	
+<hr/>  
 <% @comments.each do |comment| %>
 <ul>
-	<li>user:&nbsp;<%= link_to comment.user.username, user_path(comment.user) %></li>
-	<% if !comment.ater_id.nil? %>
-		<% ater= User.find(comment.ater_id) %>
-			@&nbsp;<%= link_to ater.username, user_path(ater) %>
-		<% end %>
-	</li>
-	<li>content:&nbsp;<%= simple_format(comment.content) %></li>
-	<li>time:&nbsp;<%= comment.created_at %></li>
-	<%= link_to 'comment it', edit_yochat_comment_path(@yochat, comment.user) %>&nbsp;&nbsp;
-	<% if @user == comment.user %>
-		<%= link_to 'delete', yochat_comment_path(@yochat, comment), :method => 'delete' %>
-	<% end %>
+  <li>user:&nbsp;<%= link_to comment.user.username, user_path(comment.user) %></li>
+  <% if !comment.ater_id.nil? %>
+    <% ater= User.find(comment.ater_id) %>
+      @&nbsp;<%= link_to ater.username, user_path(ater) %>
+    <% end %>
+  </li>
+  <li>content:&nbsp;<%= simple_format(comment.content) %></li>
+  <li>time:&nbsp;<%= comment.created_at %></li>
+  <%= link_to 'comment it', edit_yochat_comment_path(@yochat, comment.user) %>&nbsp;&nbsp;
+  <% if @user == comment.user %>
+    <%= link_to 'delete', yochat_comment_path(@yochat, comment), :method => 'delete' %>
+  <% end %>
 </ul>
-	<hr/>
+  <hr/>
 <% end %>
 <%= link_to '<<back', yochats_path %>

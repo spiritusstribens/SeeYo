@@ -1,8 +1,8 @@
 <% @friends.each do |f| %>
 <ul>
-		<% u = User.find(f.usert_id) %>
-		<h3><%= link_to u.username, user_path(u) %></h3>
-		<li><%= link_to 'cancle focus', user_friend_path(@user,f), :method => 'delete'%></li>
+    <% u = User.find(f.usert_id) %>
+    <h3><%= link_to u.username, user_path(u) %></h3>
+    <li><%= link_to 'cancle focus', user_friend_path(@user,f), :method => 'delete'%></li>
 </ul>
 <% end %>
 <hr/>

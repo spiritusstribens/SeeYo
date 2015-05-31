@@ -11,14 +11,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150530171512) do
+ActiveRecord::Schema.define(version: 20150531125536) do
 
   create_table "comments", force: :cascade do |t|
     t.integer  "user_id"
     t.integer  "yochat_id"
     t.integer  "ater_id"
     t.text     "content"
-    t.integer  "like"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -28,6 +27,13 @@ ActiveRecord::Schema.define(version: 20150530171512) do
     t.integer  "usert_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "info_interests", force: :cascade do |t|
+    t.integer  "information_id"
+    t.integer  "interest_id"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "information", force: :cascade do |t|
@@ -57,13 +63,6 @@ ActiveRecord::Schema.define(version: 20150530171512) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_interests", force: :cascade do |t|
-    t.integer  "user_id"
-    t.integer  "interest_id"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
-
   create_table "users", force: :cascade do |t|
     t.string   "username"
     t.string   "avatar"
@@ -88,7 +87,6 @@ ActiveRecord::Schema.define(version: 20150530171512) do
   create_table "yochats", force: :cascade do |t|
     t.integer  "user_id"
     t.string   "share_with"
-    t.integer  "like"
     t.text     "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

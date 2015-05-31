@@ -5,7 +5,6 @@ class CreateComments < ActiveRecord::Migration
       t.integer :yochat_id
       t.integer :ater_id
       t.text :content
-			t.integer :like
 
       t.timestamps null: false
     end

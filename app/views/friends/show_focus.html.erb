@@ -1,10 +1,10 @@
 <% @focus.each do |f| %>
 <ul>
-		<% u = User.find(f.usert_id) %>
-		<li><h3><%= link_to u.username, user_path(u) %></h3></li>
-		<% if @user == current_user %>
-			<li><%= link_to 'cancle focus', user_friend_path(current_user,f), :method => 'delete'%></li>
-		<% end %>
+    <% u = User.find(f.usert_id) %>
+    <li><h3><%= link_to u.username, user_path(u) %></h3></li>
+    <% if @user == current_user %>
+      <li><%= link_to 'cancle focus', user_friend_path(current_user,f), :method => 'delete'%></li>
+    <% end %>
 </ul>
 <% end %>
 <hr/>

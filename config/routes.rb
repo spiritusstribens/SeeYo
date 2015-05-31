@@ -1,28 +1,28 @@
 Rails.application.routes.draw do
   devise_for :users
-	root 'welcome#index'
-	resources :users, :except => [:new, :create, :destroy] do
-		resources :friends, :except => [:show, :new, :edit, :update] do
-			collection do
-				get :show_focus
-				get :show_fans
-			end
-		end
-	end
-	resources :yochats do
-		collection do
-			get :zone
-			get :circle
-			get :private
-		end
-		resources :comments, :except => [:index, :show]
-	end
-	namespace :admin do
-		resources :users
-		resources :yochats
-		resources :comments
-	end
-	# The priority is based upon order of creation: first created -> highest priority.
+  root 'welcome#index'
+  resources :users, :except => [:new, :create, :destroy] do
+    resources :friends, :except => [:show, :new, :edit, :update] do
+      collection do
+        get :show_focus
+        get :show_fans
+      end
+    end
+  end
+  resources :yochats do
+    collection do
+      get :zone
+      get :circle
+      get :private
+    end
+    resources :comments, :except => [:index, :show]
+  end
+  namespace :admin do
+    resources :users
+    resources :yochats
+    resources :comments
+  end
+  # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
