@@ -1,0 +1,11 @@
+<% @fans.each do |f| %>
+<ul>
+		<% u = User.find(f.userf_id) %>
+		<li><h3><%= link_to u.username, user_path(u) %></h3></li>
+		<% if @user == current_user %>
+			<li><%= link_to 'cancle fans', user_friend_path(current_user,f), :method => 'delete'%></li>
+		<% end %>
+</ul>
+<% end %>
+<hr/>
+<%= link_to 'Home', user_path(@user) %>

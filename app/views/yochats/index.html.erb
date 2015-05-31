@@ -1,7 +1,7 @@
 <h1>Yochats</h1>
 <% @yochats.each do |yochat| %>
 	<div style='background-color: #DDF; margin:10px; padding: 10px; border-radius: 5px'>
-		<p>user:&nbsp;<%= yochat.user.username %></p>
+		<p>user:&nbsp;<%= link_to yochat.user.username, user_path(yochat.user) %></p>
 		<p>content:&nbsp;<%= simple_format(yochat.content) %></p>
 		<p>time:&nbsp;<%= yochat.created_at %></li>
 		<p>
@@ -14,11 +14,13 @@
 		<% end %>
 		</p>
 		<%= link_to 'add comment', new_yochat_comment_path(yochat) %>
-		<%= button_to 'Delete', yochat_path(yochat), :method => 'delete' %>
+		<% if @user == yochat.user %>
+			<%= button_to 'Delete', yochat_path(yochat), :method => 'delete' %>
+		<% end %>
 	</div>
 <% end %>
 <hr/>
 <%= link_to 'Add Yochat', new_yochat_path %>&nbsp;&nbsp;
-<%= link_to 'Home', users_path %>
+<%= link_to 'Home', user_path(@user) %>
 <hr/>
 <%= paginate @yochats %>

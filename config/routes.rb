@@ -1,9 +1,16 @@
 Rails.application.routes.draw do
   devise_for :users
 	root 'welcome#index'
-	resources :users
+	resources :users, :except => [:new, :create, :destroy] do
+		resources :friends, :except => [:show, :new, :edit, :update] do
+			collection do
+				get :show_focus
+				get :show_fans
+			end
+		end
+	end
 	resources :yochats do
-		resources :comments
+		resources :comments, :except => [:index, :show]
 	end
 	namespace :admin do
 		resources :users
