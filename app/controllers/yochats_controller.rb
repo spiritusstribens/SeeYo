@@ -5,7 +5,7 @@ class YochatsController < ApplicationController
 
   def index
     @page_title = 'Yochats Plaza'
-    @yochats = Yochat.where(:share_with => 'public').page(params[:page]).per(10)
+    @yochats = Yochat.where(:share_with => 'public').order('created_at DESC').page(params[:page]).per(10)
   end
 
   def zone
@@ -18,6 +18,7 @@ class YochatsController < ApplicationController
         @yochats.push(zy)
       end
     end
+    @yochats.reverse!
   end
 
   def circle
@@ -36,16 +37,17 @@ class YochatsController < ApplicationController
         @yochats.push(cy)
       end
     end
+    @yochats.reverse!
   end
 
   def private
     @page_title = 'Yochats for me'
-    @yochats = @user.yochats.page(params[:page]).per(10)
+    @yochats = @user.yochats.order('created_at DESC').page(params[:page]).per(10)
   end
 
   def show
     @page_title = 'Yochat'
-    @comments = @yochat.comments
+    @comments = @yochat.comments.order('created_at DESC').page(params[:page]).per(10)
   end
 
   def new
@@ -86,6 +88,9 @@ class YochatsController < ApplicationController
 
   private
   def set_user
+    if current_user.is_admin
+      redirect_to admin_yochats_url
+    end
     @user = current_user
   end
 

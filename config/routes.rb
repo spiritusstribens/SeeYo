@@ -2,6 +2,9 @@ Rails.application.routes.draw do
   devise_for :users
   root 'welcome#index'
   resources :users, :except => [:new, :create, :destroy] do
+		collection do
+			get :show_messages
+		end
     resources :friends, :except => [:show, :new, :edit, :update] do
       collection do
         get :show_focus
@@ -20,9 +23,10 @@ Rails.application.routes.draw do
   end
 
   namespace :admin do
-    resources :users, :only => [:index, :show, :destroy]
-    resources :yochats, :only => [:index, :show, :edit, :update]
-    resources :comments, :only => [:index, :show, :edit, :update]
+    resources :users, :except => [:new, :create]
+    resources :yochats, :except => [:new, :create, :destroy]
+    resources :comments, :except => [:show, :new, :create, :destroy]
+    resources :messages, :only => [:index, :show, :destroy]
   end
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

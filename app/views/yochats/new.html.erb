@@ -1,14 +1,14 @@
-<h2>Create a Comment</h2>
+<h2>Create a Yochat</h2>
 
 <%= form_for @yochat, :url => yochats_path do |f| %>
-  <p><%= f.label :content, 'Content' %></p>
-  <%= f.text_area :content, :rows => 5, :cols => 50 %>
-  <br/><br/>
-  <%= f.label :share_with, 'share with:' %>
-  <p><%= f.radio_button :share_with, 'public' %>public&nbsp;&nbsp;
-  <%= f.radio_button :share_with, 'zone' %>zone&nbsp;&nbsp;
-  <%= f.radio_button :share_with, 'circle' %>circle&nbsp;&nbsp;
-  <%= f.radio_button :share_with, 'private' %>private</p>
-  
-  <%= f.submit 'Publish' %>
+    <p><%= f.label :content, 'Content' %></p>
+    <%= f.text_area :content, :rows => 5, :cols => 50 %>
+    <br/><br/>
+    <%= f.label :share_with, 'share with:' %>
+    <p><%= f.radio_button :share_with, 'public' %>public&nbsp;&nbsp;
+    <%= f.radio_button :share_with, 'zone' %>zone&nbsp;&nbsp;
+    <%= f.radio_button :share_with, 'circle' %>circle&nbsp;&nbsp;
+    <%= f.radio_button :share_with, 'private' %>private</p>
+    
+    <%= f.submit 'Publish' %>
 <% end %>

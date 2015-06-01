@@ -1,11 +1,11 @@
-<h2>Create a Comment</h2>
-    
+<h2>Create a Yochat</h2>
+        
 <%= form_for @yochat, :url => yochat_path(@yochat), :method => 'patch' do |f| %>
-  <%= f.label :share_with, 'Share with' %>
-  <p><%= f.radio_button :share_with, 'public' %>public</p>
-  <p><%= f.radio_button :share_with, 'zone' %>zone</p>
-  <p><%= f.radio_button :share_with, 'circle' %>circle</p>
-  <p><%= f.radio_button :share_with, 'private' %>private</p>
+    <%= f.label :share_with, 'Share with' %>
+    <p><%= f.radio_button :share_with, 'public' %>public</p>
+    <p><%= f.radio_button :share_with, 'zone' %>zone</p>
+    <p><%= f.radio_button :share_with, 'circle' %>circle</p>
+    <p><%= f.radio_button :share_with, 'private' %>private</p>
 
-  <%= f.submit 'Publish' %>
+    <%= f.submit 'Publish' %>
 <% end %>

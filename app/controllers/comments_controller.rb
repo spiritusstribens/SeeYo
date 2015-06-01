@@ -10,7 +10,7 @@ class CommentsController < ApplicationController
     @comment = @yochat.comments.build(comment_params)
     @comment.user = @user
     if @comment.save
-      Message.create(:user => @yochat.user, :classes => "yochat", :msg_id => @comment.id, :sender_id => @user.id)
+      Message.create(:user => @yochat.user, :classes => "yochat", :msg_id => @yochat.id, :sender_id => @user.id)
       redirect_to yochat_url(@yochat)
       flash[:notice] = "Comment was successfully created!"
     else
@@ -20,19 +20,15 @@ class CommentsController < ApplicationController
   end
 
   def edit
-    @comment = @yochat.comments.create(:user => @user, :ater_id => params[:id])
-    Message.create(:user_id => params[:id], :classes => 'comment', :msg_id => @comment.id, :sender_id => @user.id)
+    @comment = @yochat.comments.create(:user => @user, :ater_id => params[:id], :content => '...')
+    Message.create(:user_id => params[:id], :classes => 'comment', :msg_id => @yochat.id, :sender_id => @user.id)
   end
 
   def update
     @comment = Comment.find(params[:id])
-    if @comment.update(comment_params)
-      redirect_to yochat_url(@yochat)
-      flash[:notice] = "Comment was successfully created!"
-    else
-      render :edit
-      flash[:alert] = "Comment created faild!"
-    end
+    @comment.update(comment_params)
+    redirect_to yochat_url(@yochat)
+    flash[:notice] = "Comment was successfully created!"
   end
 
   def destroy
@@ -44,6 +40,9 @@ class CommentsController < ApplicationController
 
   private
   def set_user_yochat
+    if current_user.is_admin
+      redirect_to admin_comments_url
+    end
     @user = current_user
     @yochat = Yochat.find(params[:yochat_id])
   end

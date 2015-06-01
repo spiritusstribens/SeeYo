@@ -1,5 +1,6 @@
+<h1>Create @ comment</h1>
 <%= form_for @comment, :url => yochat_comment_path(@yochat, @comment), :method => 'patch' do |f| %>
-<p><%= f.label :content, 'comment' %></p>
-<p><%= f.text_area :content %></p>
-<%= f.submit 'publish' %>
+    <p><%= f.label :content, 'comment' %></p>
+    <p><%= f.text_area :content %></p>
+    <%= f.submit 'publish' %>
 <% end %>

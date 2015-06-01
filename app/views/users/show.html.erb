@@ -1,52 +1,49 @@
+<% if @user == current_user %>
+    <div style='float: right; margin: 5px'><%= link_to 'Account', users_path %></div>
+    <div style='float: right; margin: 5px'><%= link_to 'Edit profile', edit_user_path(@user) %></div>
+    <div style='float: right; margin: 5px'><%= link_to 'Plaza', yochats_path %></div>
+    <div style='float: right; margin: 5px'><%= link_to 'YoFriends', user_friends_path(@user) %></div>
+    <div style='float: right; margin: 5px'><%= link_to 'Messages', show_messages_users_path %></div>
+<% else %>
+    <div style='float: right; margin: 5px'><%= link_to 'Back Home', user_path(current_user)%></div>
+    <% if Friend.exists?(:userf_id => current_user.id ,:usert_id => @user.id) %>
+    <div style='float: right; margin: 5px'><%= link_to 'Delete the Friend', user_friends_path(@user), :method => 'post' %></div>
+    <% else %>
+        <div style='float: right; margin: 5px'><%= link_to 'Add the Friend', user_friends_path(@user), :method => 'post' %></div>
+    <% end %>
+<% end %>
+
 <h1><%= @user.username %></h1>
 <p>about:<%= @info.about %></p>
 <ul>
-  <li>gender:<%= @info.gender %></li>
-  <li>location:<%= @info.location %></li>
-  <li>birthday:<%= @info.birthday %></li>
-  <li>blog:<%= @info.blog %></li>
-  <li>interests: <%= @info.interests.pluck(:name).join(', ') %></li>
-  <li><%= link_to 'following', show_focus_user_friends_path(@user) %><%= Friend.where(:userf_id => @user.id).count %></li>
-  <li><%= link_to 'follower', show_fans_user_friends_path(@user) %><%= Friend.where(:usert_id => @user.id).count %></li>
+    <li>gender:<%= @info.gender %></li>
+    <li>location:<%= @info.location %></li>
+    <li>birthday:<%= @info.birthday %></li>
+    <li>blog:<%= @info.blog %></li>
+    <li>interests: <%= @info.interests.pluck(:name).join(', ') %></li>
+    <li><%= link_to 'following', show_focus_user_friends_path(@user) %><%= Friend.where(:userf_id => @user.id).count %></li>
+    <li><%= link_to 'follower', show_fans_user_friends_path(@user) %><%= Friend.where(:usert_id => @user.id).count %></li>
 </ul>
 
-<ul style='list-style-type: none'>
-  <% if @user == current_user %>
-    <li><%= link_to 'Account', users_path %></li>
-    <li><%= link_to 'Edit profile', edit_user_path(@user) %></li>
-    <li><%= link_to 'Plaza', yochats_path %></li style='float:left'>
-    <li><%= link_to 'my Friends', user_friends_path(@user) %></li>
-  <% else %>
-    <li><%= link_to 'Back Home', user_path(current_user)%>
-    <% if Friend.exists?(:userf_id => current_user.id ,:usert_id => @user.id) %>
-      <li><%= link_to 'Delete the Friend', user_friends_path(@user), :method => 'post' %></li>
-    <% else %>
-      <li><%= link_to 'Add the Friend', user_friends_path(@user), :method => 'post' %></li>
-    <% end %>
-  <% end %>
-</ul>
-
-<h1>Yochats</h1>
+<h2>Yochats</h2>
 <% @yochats.each do |yochat| %>
-  <div style='background-color: #DFD; margin:10px; padding: 7px; border-radius: 5px'>
-    <p>user:&nbsp;<%= link_to yochat.user.username, user_path(yochat.user) %></p>
-    <p>content:&nbsp;<%= simple_format(yochat.content) %></p>
-    <p>time:&nbsp;<%= yochat.created_at %></li>
-    <p>
-      <%= link_to 'comments', yochat_path(yochat) %>&nbsp;
-      <%= yochat.comments.count %>
-    </p>
-    <% if current_user == yochat.user %>
-      <p><%= link_to 'share: ' + yochat.share_with, edit_yochat_path(yochat) %>&nbsp;&nbsp;
-    <% end %>
-    </p>
-    <%= link_to 'add comment', new_yochat_comment_path(yochat) %>
-    <% if current_user == yochat.user %>
-      <%= button_to 'Delete', yochat_path(yochat), :method => 'delete' %>
-    <% end %>
-  </div>
+    <div style='background-color: #CCF; margin:10px; padding: 7px; border-radius: 5px'>
+        <div style='float: right'><%= yochat.created_at %></div>
+        <strong><%= yochat.user.username %></strong>
+        <% if current_user == yochat.user %>
+            <div style='float:right; margin-right:20px; font-family:Calibri'><%= link_to yochat.share_with.upcase, edit_yochat_path(yochat) %></div>
+        <% end %>
+        <div style='font-family:Arial; padding-left: 15px'><%= simple_format(yochat.content) %></div>
+        <div style='float:left; margin-right:30px'><%= link_to 'comments', yochat_path(yochat) %> <%= yochat.comments.count %></div>
+        <div><%= link_to 'add comment', new_yochat_comment_path(yochat) %></div>
+        <% if current_user == yochat.user %>
+            <div><%= button_to 'Delete', yochat_path(yochat), :method => 'delete' %></div>
+        <% end %>
+    </div>
 <% end %>
-<hr/>
-<%= link_to 'Add Yochat', new_yochat_path %>&nbsp;&nbsp;
+<% if @user == current_user %>
+	<hr/>
+	<%= link_to 'Add Yochat', new_yochat_path %>
+<% end %>
 <hr/>
 <%= paginate @yochats %>

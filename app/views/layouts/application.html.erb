@@ -1,13 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>SeeYo</title>
+  <title><%= @page_title || 'SeeYo' %></title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<div style='float:top; background-color:#CFC; text-align:center; opacity:0.8; border-radius:7px'><%= flash[:notice] %></div>
+<div style='float:top; background-color:#FCC; text-align:center; opacity:0.8; border-radius:7px'><%= flash[:alert] %></div>
 <%= yield %>
 
 </body>

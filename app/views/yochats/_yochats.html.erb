@@ -1,29 +1,15 @@
-<ul>
-  <li><%= link_to 'plaza', yochats_path %></li>
-  <li><%= link_to 'zone', zone_yochats_path %></li>
-  <li><%= link_to 'circle', circle_yochats_path %></li>
-  <li><%= link_to 'private', private_yochats_path %></li>
-</ul>
-
-<% yochats.each do |yochat| %>
-  <div style='background-color: #DDF; margin:10px; padding: 10px; border-radius: 5px'>
-    <p>user:&nbsp;<%= link_to yochat.user.username, user_path(yochat.user) %></p>
-    <p>content:&nbsp;<%= simple_format(yochat.content) %></p>
-    <p>time:&nbsp;<%= yochat.created_at %></li>
-    <p>
-      <%= link_to 'comments', yochat_path(yochat) %>&nbsp;
-      <%= yochat.comments.count %>
-    </p>
-    <% if user == yochat.user %>
-      <p><%= link_to 'share: ' + yochat.share_with, edit_yochat_path(yochat) %>&nbsp;&nbsp;
-    <% end %>
-    </p>
-    <%= link_to 'add comment', new_yochat_comment_path(yochat) %>
-    <% if user == yochat.user %>
-      <%= button_to 'Delete', yochat_path(yochat), :method => 'delete' %>
-    <% end %>
-  </div>
+<% @yochats.each do |yochat| %>
+    <div style='background-color: #CCF; margin:10px; padding: 7px; border-radius: 5px'>
+        <div style='float: right'><%= yochat.created_at %></div>
+        <strong><%= link_to yochat.user.username, user_path(yochat.user) %></strong>
+        <% if user == yochat.user %>
+            <div style='float:right; margin-right:20px; font-family:Calibri'><%= link_to yochat.share_with.upcase, edit_yochat_path(yochat) %></div>
+        <% end %>
+        <div style='font-family:Arial; padding-left: 15px'><%= simple_format(yochat.content) %></div>
+        <div style='float:left; margin-right:30px'><%= link_to 'comments', yochat_path(yochat) %> <%= yochat.comments.count %></div>
+        <div><%= link_to 'add comment', new_yochat_comment_path(yochat) %></div>
+        <% if user == yochat.user %>
+            <div><%= button_to 'Delete', yochat_path(yochat), :method => 'delete' %></div>
+        <% end %>
+    </div>
 <% end %>
-<hr/>
-<%= link_to 'Add Yochat', new_yochat_path %>&nbsp;&nbsp;
-<%= link_to 'Home', user_path(user) %>

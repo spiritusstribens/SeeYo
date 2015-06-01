@@ -1,3 +1,4 @@
+<%= render :partial => 'item', :locals => {:user => @user} %>
 <h1>Private</h1>
 <%= render :partial => 'yochats', :locals => {:yochats => @yochats, :user => @user} %>
 <%= paginate @yochats %>
